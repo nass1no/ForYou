@@ -1,0 +1,203 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #04042b, #1e1616); /* Dégradé de bleu foncé à noir */
+    margin: 0;
+    padding: 0;
+    color: rgb(49, 29, 2); /* Couleur du texte */
+}
+body.overflow-hidden {
+    overflow: hidden;
+}
+
+
+@keyframes appear-animation {
+    0% {
+        opacity: 0; /* Commencez avec une opacité de 0 */
+    }
+    100% {
+        opacity: 1; /* Augmentez l'opacité à 100% */
+    }
+}
+
+@keyframes disappear-animation {
+    0% {
+        opacity: 1; /* Commencez avec une opacité de 100% */
+    }
+    100% {
+        opacity: 0; /* Diminuez l'opacité à 0% */
+    }
+}
+
+.appear-animation {
+    opacity: 0; /* Commencez avec une opacité de 0 */
+    animation: appear-animation 5s forwards; /* Animation d'apparition avec une durée de 5 secondes */
+}
+
+.disappear-animation {
+    opacity: 1; /* Commencez avec une opacité de 100% */
+    animation: disappear-animation 3s forwards; /* Animation de disparition avec une durée de 3 secondes */
+}
+
+#parchment-container {
+    position: relative; /* Assurez-vous que le conteneur est positionné de manière relative */
+    text-align: center; /* Alignez le texte au centre */
+    width: 85%;
+    margin: 14px;
+    align-self: center;
+}
+
+#parchment-container img {
+    display: block; /* Assurez-vous que l'image du parchemin est un bloc pour qu'elle occupe tout l'espace disponible */
+    width: 100%; /* Utilisez toute la largeur du conteneur */
+    height: auto; /* Ajustez automatiquement la hauteur en fonction de la largeur pour maintenir les proportions */
+}
+
+#parchment-container p {
+    position: absolute; /* Positionnez le texte de manière absolue par rapport au conteneur */
+    top: 50%; /* Placez le texte à 50% du haut du conteneur */
+    left: 50%; /* Placez le texte à 50% de la gauche du conteneur */
+    transform: translate(-50%, -50%); /* Déplacez le texte de moitié de sa propre taille vers le haut et la gauche pour le centrer */
+    color: white; /* Couleur du texte */
+    font-size: 24px; /* Taille de la police */
+    font-family: Arial, sans-serif; /* Police de caractères */
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+#phrases-container{
+    z-index: 999;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+button {
+    padding: 4vw 8vw; /* Utilisation de vw pour la taille du padding */
+    font-size: 4vw;
+    cursor: pointer;
+    background: transparent;
+    border: none; /* Supprimer la bordure */
+    color: white; /* Couleur du texte */
+    position: relative; /* Position relative pour les éléments absolus */
+}
+
+button::before,
+button::after {
+    content: '';
+    position: absolute;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    top: -2px;
+    left: -2px;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 15px; /* Bord arrondi */
+    pointer-events: none; /* Éviter que les pseudo-éléments interfèrent avec les interactions de souris */
+    z-index: -1; /* Placer derrière le bouton */
+    animation: glow 2s infinite alternate; /* Animation de changement de couleur */
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px #ff0000, 0 0 10px #ff3300, 0 0 15px #ff6600, 0 0 20px #ff9900, 0 0 25px #ffcc00, 0 0 30px #ffff00;
+    }
+    100% {
+        box-shadow: 0 0 5px #ff00cc, 0 0 10px #ff00ff, 0 0 15px #cc00ff, 0 0 20px #9900ff, 0 0 25px #6600ff, 0 0 30px #3300ff;
+    }
+}
+
+
+
+
+button:hover {
+    color: #ff00ff; /* Changement de couleur du texte au survol */
+}
+
+
+
+#for-you-joan {
+    position: absolute;
+    top: -50px; /* Réglage pour le placer au-dessus du bouton */
+    color: white;
+    opacity: 0.5; /* Opacité réduite pour le placer en arrière-plan */
+    z-index: 0; /* Placer derrière le bouton et les coeurs */
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-50vh);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+.phrase {
+    font-size: 8vw;
+    margin-bottom: 25vw;
+    z-index: 999;
+    opacity: 0; /* Commencez avec une opacité de 0 */
+    animation: fadeinout 4s forwards; /* Animation de fade-in puis fade-out */
+    color: rgb(43, 24, 0); /* Ajouter une couleur de texte explicite */
+}
+
+@keyframes fadeinout {
+    0%, 25% {
+        opacity: 0; /* Commencez et terminez avec une opacité de 0 */
+    }
+    80%, 100% {
+        opacity: 1; /* Augmentez et maintenez l'opacité */
+    }
+}
+
+/* #hearts-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+} */
+
+
+.emoji {
+    
+    position: absolute;
+    z-index:  100;
+    color: red;
+    opacity: 0.8;
+    font-size: 4vw; /* Taille des cœurs */
+    animation: appear-disappear 4s infinite; /* Position absolue par rapport à la fenêtre du navigateur * /* Taille des emojis */ /* Animation d'apparition et de disparition */ /* Commencez avec une opacité de 0 */
+}
+
+@keyframes appear-disappear {
+    0%, 0% {
+        opacity: 0; /* Commencez et terminez avec une opacité de 0 */
+    }
+    10%, 90% {
+        opacity: 1; /* Augmentez et maintenez l'opacité */
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0); /* Pas de déplacement vertical au début et à la fin */
+    }
+    50% {
+        transform: translateY(-5px); /* Déplacement vers le haut au milieu */
+    }
+}
+
+
+
+
