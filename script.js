@@ -16,16 +16,16 @@ document.getElementById('click-me-btn').addEventListener('click', function () {
 function createEmojis() {
     setInterval(() => {
         const emojisContainer = document.getElementById('emojis-container');
-        const emojis = ['❤️','😊', '🥰', '💖', '💕', '🌈']; // Liste d'autres emojis ajoutés
+        const emojis = ['❤️', '😊', '🥰', '💖', '💕', '🌈']; // Liste d'autres emojis ajoutés
 
         const emoji = document.createElement('span');
         emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)]; // Sélectionner un emoji aléatoire parmi la liste
         emoji.classList.add('emoji');
         // Position horizontale et verticale aléatoire
         emoji.style.left = Math.random() * (window.innerWidth - 100) + 'px'; // -40 pour éviter que les emojis ne sortent de l'écran
-        emoji.style.top = Math.random() * (window.innerHeight - 100) + 'px'; 
+        emoji.style.top = Math.random() * (window.innerHeight - 100) + 'px';
         // Animation de bondissement aléatoire
-        emoji.style.animation = 'bounce ' + (Math.random() * 3 + 1) + 's infinite alternate'; 
+        emoji.style.animation = 'bounce ' + (Math.random() * 3 + 1) + 's infinite alternate';
         emojisContainer.appendChild(emoji);
 
         setTimeout(() => {
@@ -69,30 +69,57 @@ function hideHeartsAndShowButton() {
 
 function showPhrases() {
     const phrasesContainer = document.getElementById('phrases-container');
-    const phrases = ["Je t'aime", "Tu es magnifique", "Mon amour pour toi est infini", "Tu rends ma vie meilleure"];
+    const phrases = ["Hello joana.", "Juste pour te dire combien", "tu es une personne", "merveilleuse et formidable.","Ton sourire et ta joie sont tout autant pressieux que les astres dans le ciel.","N'arrete surtout pas de sourire.", "Gros bisous ❤️"];
 
-    phrases.forEach((phrase, index) => {
-        setTimeout(() => {
-            const phraseElement = document.createElement('div');
-            phraseElement.textContent = phrase;
-            phraseElement.classList.add('phrase');
-            phrasesContainer.innerHTML = ''; // Effacer les anciennes phrases
-            phrasesContainer.appendChild(phraseElement);
+    // Fonction pour afficher une phrase avec un effet d'écriture caractère par caractère
+    // Fonction pour afficher toutes les phrases avec un effet d'écriture accéléré
+    function writeText() {
+        // Créer un élément pour le texte
+        const textElement = document.createElement('div');
+        textElement.classList.add('phrase');
+        phrasesContainer.appendChild(textElement);
 
-            setTimeout(() => {
-                phraseElement.remove();
-                // Réafficher le bouton après que toutes les phrases ont été affichées et disparues
-                if (index === phrases.length - 1) {
+        // Concaténer toutes les phrases pour former un texte continu
+        const concatenatedText = phrases.join(' ');
+
+        // Initialiser l'index du caractère à 0
+        let charIndex = 0;
+
+        // Fonction pour ajouter les caractères un par un avec un délai
+        function addCharacter() {
+            // Vérifier si tous les caractères ont été ajoutés
+            if (charIndex < concatenatedText.length) {
+                // Ajouter le caractère au texte
+                textElement.textContent += concatenatedText[charIndex];
+                charIndex++;
+
+                // Appeler la fonction de manière récursive pour ajouter le caractère suivant après un délai
+                setTimeout(addCharacter, 160); // Délai de 50ms entre chaque caractère
+            } else {
+                setTimeout(() => {
+                    // Effacer le texte
+                    phrasesContainer.removeChild(textElement);
+
+                    // Réafficher le bouton après un délai
                     const parchmentContainer = document.getElementById('parchment-container');
                     parchmentContainer.classList.remove('appear-animation');
                     parchmentContainer.classList.add('disappear-animation');
 
-                    setTimeout(function () {
-                        document.getElementById('parchment-container').style.display = 'none';
+                    setTimeout(() => {
+                        parchmentContainer.style.display = 'none';
                         document.getElementById('click-me-btn').style.display = 'block';
-                    }, 5000);
-                }
-            }, 10000);
-        }, index * 7500); // Chaque phrase apparaît après 2 secondes et disparaît après 2 secondes
-    });
+                    }, 3000); // Délai de 5 secondes avant de réafficher le bouton
+                }, 9000); // Délai de 1 seconde après l'affichage complet du texte
+            }
+        }
+
+        // Démarrer l'ajout des caractères
+        addCharacter();
+    }
+
+    // Appeler la fonction pour écrire le texte
+    writeText();
+
+
+
 }
